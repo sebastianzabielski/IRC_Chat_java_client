@@ -1,0 +1,53 @@
+@startuml
+
+class Connection {
+   - ip: String
+   - port: int
+   - socket: Socket
+   - outputStream: DataOutputStream
+   - inputStream: BufferedReader
+
+   + Connection(ip: String, port: int)
+   - createSocket(ip: String, port: int)
+
+   # receive()
+   # receive(byteLength: int)
+   # receive(searchSequence: String)
+
+   # send(content: String)
+}
+
+class Client extends Connection {
+
+
+ + Client(ip: String, port: int)
+ + Client()
+
+}
+
+note right of Client::Client
+ constructor throw error
+end note
+
+note right of Client::Client()
+ throw error if connection was not initialized by other constructor
+end note
+
+class IRCInstance{
+     client: Client /*add assotiation*/
+
+     +IRCInstance()
+
+     + onReceive()
+
+     + register()
+     + login()
+}
+
+
+
+
+
+
+@enduml
+
