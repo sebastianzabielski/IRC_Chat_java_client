@@ -1,6 +1,7 @@
 package dataStructures;
 
 import error.ReadonlyAttributeException;
+import statics.ApiStatics;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +9,10 @@ import java.util.Map;
 public class Receive {
     public static Map<String, Object> parseStringToMap(String string) {
         Map<String, Object> result = new HashMap<>();
-        String[] asd = string.split("\0"); //TODO change separator to static global attribute
+        String[] asd = string.split(ApiStatics.IOSeparator);
 
         for (String item : asd) {
-            String[] splitItem = item.split(":"); //TODO change separator to static global attribute
+            String[] splitItem = item.split(ApiStatics.KeyValueSeparator);
             try {
                 Object value = Receive.parseStringToJavaType(splitItem[1]);
                 result.put(splitItem[0], value);
