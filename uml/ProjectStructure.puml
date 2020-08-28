@@ -18,11 +18,8 @@ class Connection {
 }
 
 class Client extends Connection {
-
-
  + Client(ip: String, port: int)
  + Client()
-
 }
 
 note left of Client::Client
@@ -47,17 +44,13 @@ class IRCSocket {
 
 
 }
-
-note left of IRCSocket::onReceive()
-method should be overridden
-each time new instance of class is created,
-otherwise throw an error
-end note
 IRCSocket::client *-- Client
 
-
-
-
+note left of IRCSocket::onReceive()
+ method should be overridden
+ each time new instance of class is created,
+ otherwise throw an error
+end note
 
 @enduml
 
