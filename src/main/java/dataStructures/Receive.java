@@ -1,6 +1,6 @@
 package dataStructures;
 
-import error.ReadonlyAttributeException;
+import exceptions.ReadonlyAttributeException;
 import statics.ApiStatics;
 
 import java.util.HashMap;

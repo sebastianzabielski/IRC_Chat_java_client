@@ -30,11 +30,11 @@ class Client extends Connection {
 }
 
 note left of Client::Client
- constructor throw error
+ constructor throw exception
 end note
 
 note left of Client::Client()
- throw error if connection was
+ throw exception if connection was
  not initialized by other constructor
 end note
 
@@ -56,7 +56,7 @@ IRCSocket::client *-- Client
 note left of IRCSocket::onReceive()
  method should be overridden
  each time new instance of class is created,
- otherwise throw an error
+ otherwise throw an exception
 end note
 
 package "dataStructures" #DDDDDD {

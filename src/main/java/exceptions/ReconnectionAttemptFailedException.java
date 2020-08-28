@@ -1,4 +1,4 @@
-package error;
+package exceptions;
 
 public class ReconnectionAttemptFailedException extends Throwable {
     public ReconnectionAttemptFailedException() {

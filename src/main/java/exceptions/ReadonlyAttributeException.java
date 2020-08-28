@@ -1,4 +1,4 @@
-package error;
+package exceptions;
 
 public class ReadonlyAttributeException extends Exception {
     public ReadonlyAttributeException() {
