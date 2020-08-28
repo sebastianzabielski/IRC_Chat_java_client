@@ -1,14 +1,45 @@
 package dataStructures;
 
 import error.ReadonlyAttributeException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Receive {
-    static Map<String, Object> parseStringToMap(String string) {
-        throw new NotImplementedException();
+    public static Map<String, Object> parseStringToMap(String string) {
+        Map<String, Object> result = new HashMap<>();
+        String[] asd = string.split("\0"); //TODO change separator to static global attribute
+
+        for (String item : asd) {
+            String[] splitItem = item.split(":"); //TODO change separator to static global attribute
+            try {
+                Object value = Receive.parseStringToJavaType(splitItem[1]);
+                result.put(splitItem[0], value);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                result.put(item, null);
+                e.printStackTrace();
+            }
+
+        }
+        return result;
+    }
+
+    public static Object parseStringToJavaType(String item) {
+        try {
+            if (item == null || item.equals("null")) {
+                return null;
+            }
+        } catch (Exception ignored) {
+        }
+        try {
+            return Integer.parseInt(item);
+        } catch (Exception ignored) {
+        }
+        try {
+            return Boolean.parseBoolean(item);
+        } catch (Exception ignored) {
+        }
+        return item;
     }
 
     private final Map<String, Object> header;
@@ -32,15 +63,15 @@ public class Receive {
     }
 
     public void setBody(Map<String, Object> body) throws ReadonlyAttributeException {
-        if (body != null) {
+        if (this.body != null) {
             throw new ReadonlyAttributeException();
         } else {
             this.body = body;
         }
     }
 
-    public void setBody(String body) {
-        this.body = Receive.parseStringToMap(body);
+    public void setBody(String body) throws ReadonlyAttributeException {
+        this.setBody(Receive.parseStringToMap(body));
     }
 
     public Map<String, Object> getHeader() {
