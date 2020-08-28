@@ -1,11 +1,15 @@
 @startuml
+sprite $readonly[16x16/16z] {
+DOzH4iKW20CV4Y1jt-ZzRrl0kZ-w4pFWMibDydhMnmneOfpRG-696LiV82gX-R_yKf-xPdUTLDyzjgjx8CawcGb-1n5f7z8CrNOPK34JsF5yOD5vdDnZm51k
+dLSTd-Sbry-1dukSSUtr5uyDrmi0
+}
 
 class Connection {
    - ip: String
    - port: int
    - socket: Socket
-   - outputStream: DataOutputStream
-   - inputStream: BufferedReader
+   - output: DataOutputStream
+   - input: BufferedReader
 
    + Connection(ip: String, port: int)
    - createSocket(ip: String, port: int)
@@ -15,6 +19,9 @@ class Connection {
    # receive(searchSequence: String)
 
    # send(content: String)
+
+   + reconnect()
+   + closeSocket()
 }
 
 class Client extends Connection {
@@ -51,6 +58,28 @@ note left of IRCSocket::onReceive()
  each time new instance of class is created,
  otherwise throw an error
 end note
+
+package "dataStructures" #DDDDDD {
+
+  class Receive {
+    <$readonly> header:  Map<String, Object>
+    <$readonly> body:  Map<String, Object>
+
+    + Receive(header: Map<String, Object>)
+    + Receive(header: Map<String, Object>, body: Map<String, Object>)
+    + Receive(header: String)
+    + Receive(header: String, body:  String)
+
+    + {static} parseStringToMap(string: String)
+    + {static} parseStringToJavaType(string: String): Object
+
+    + setBody(body: String): void
+    + setBody(body: Map<String, Object>)
+
+    + getHeader(): Map<String, Object>
+    + getBody(): Map<String, Object>
+  }
+}
 
 @enduml
 
