@@ -70,11 +70,11 @@ package "dataStructures" #DDDDDD {
     + Receive(header: String)
     + Receive(header: String, body:  String)
 
-    + {static} parseStringToMap(string: String)
+    + {static} parseStringToMap(string: String): Map<String, Object>
     + {static} parseStringToJavaType(string: String): Object
 
     + setBody(body: String): void
-    + setBody(body: Map<String, Object>)
+    + setBody(body: Map<String, Object>): void
 
     + getHeader(): Map<String, Object>
     + getBody(): Map<String, Object>
