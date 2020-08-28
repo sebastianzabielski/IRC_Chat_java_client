@@ -81,5 +81,14 @@ package "dataStructures" #DDDDDD {
   }
 }
 
+
+package "statics" #54FF82 {
+ class ApiStatics {
+     public {static} IOSeparator: String
+     public {static} IOBlockSeparator String
+     public {static} KeyValueSeparator: String
+     public Keys: enum
+ }
+}
 @enduml
 
