@@ -25,25 +25,35 @@ class Client extends Connection {
 
 }
 
-note right of Client::Client
+note left of Client::Client
  constructor throw error
 end note
 
-note right of Client::Client()
- throw error if connection was not initialized by other constructor
+note left of Client::Client()
+ throw error if connection was
+ not initialized by other constructor
 end note
 
-class IRCInstance{
-     client: Client /*add assotiation*/
+class IRCSocket {
+     - client: Client
 
-     +IRCInstance()
+     + IRCSocket()
 
      + onReceive()
 
      + register()
      + login()
+'    TODO complete missing methods
+
+
 }
 
+note left of IRCSocket::onReceive()
+method should be overridden
+each time new instance of class is created,
+otherwise throw an error
+end note
+IRCSocket::client *-- Client
 
 
 
