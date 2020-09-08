@@ -1,6 +1,7 @@
 import dataStructures.Receive;
-import error.ReconnectionAttemptFailedException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import exceptions.ReadonlyAttributeException;
+import exceptions.ReconnectionAttemptFailedException;
+import statics.ApiStatics;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -28,16 +29,34 @@ public class Connection {
         this.input = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
     }
 
-    protected Receive receive() {
-        throw new NotImplementedException();
+    protected Receive receive() throws IOException, ReadonlyAttributeException {
+        String header = this.receive(ApiStatics.IOBlockSeparator);
+        Receive receive = new Receive(header);
+
+        Integer bodyLen = receive.getConLen();
+        String body = this.receive(bodyLen);
+        receive.setBody(body);
+
+        return receive;
+
     }
 
-    protected String receive(int len) {
-        throw new NotImplementedException();
+    protected String receive(int len) throws IOException {
+        StringBuilder result = new StringBuilder();
+        while (result.length() < len) {
+            char a = (char) this.input.read();
+            result.append(a);
+        }
+        return result.toString();
     }
 
-    protected String receive(String searchSequence) {
-        throw new NotImplementedException();
+    protected String receive(String searchSequence) throws IOException {
+        StringBuilder result = new StringBuilder();
+        while (!result.toString().endsWith(searchSequence)) {
+            char a = (char) this.input.read();
+            result.append(a);
+        }
+        return result.toString();
     }
 
 
