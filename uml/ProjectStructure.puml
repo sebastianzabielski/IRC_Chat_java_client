@@ -27,6 +27,9 @@ class Connection {
 class Client extends Connection {
  + Client(ip: String, port: int)
  + Client()
+
+ - listenReceive(): void
+
 }
 
 note left of Client::Client
@@ -36,6 +39,12 @@ end note
 note left of Client::Client()
  throw exception if connection was
  not initialized by other constructor
+end note
+
+note left of Client::listenReceive
+this method working on the separate thread,
+it is an infinite loop that waiting to receive the data
+and emitting them
 end note
 
 class IRCSocket {
@@ -78,6 +87,8 @@ package "dataStructures" #DDDDDD {
 
     + getHeader(): Map<String, Object>
     + getBody(): Map<String, Object>
+
+    + getConLen(): Integer
   }
 }
 
