@@ -71,6 +71,10 @@ public class Receive {
         }
     }
 
+    public Integer getConLen() {
+        return (Integer) this.body.get("ConLen"); //TODO move static string key to api keys
+    }
+
     public void setBody(String body) throws ReadonlyAttributeException {
         this.setBody(Receive.parseStringToMap(body));
     }
