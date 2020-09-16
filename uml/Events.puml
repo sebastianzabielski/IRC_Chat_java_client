@@ -1,5 +1,21 @@
 @startuml
-class Event {
-'TODO
+
+interface ServerReceiveEventListener{
+  + handleEventUpdate(receive: Receive)
+  + unsubscribe()
 }
+
+class ServerReceiveEvent {
+    - {static} listeners: Map<Integer, Set<ServerReceiveEventListener>>
+
+    + ServerReceiveEvent()
+    + ServerReceiveEvent(eventType: Integer, item: ServerReceiveEventListener)
+
+    + emit(eventType: Integer, receive: Receive)
+    - initListenersMap()
+    + subscribe(eventType: Integer, item: ServerReceiveEventListener)
+    + unsubscribe(eventType: Integer, item: ServerReceiveEventListener)
+}
+
+ServerReceiveEventListener <|-- ServerReceiveEvent
 @enduml
